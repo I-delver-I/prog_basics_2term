@@ -8,3 +8,13 @@ C:\Users\Дима\Desktop\Studying\Labs\Lab.-works.-Basics-of-programming\II ter
 C:\Users\Дима\Desktop\Studying\Labs\Lab.-works.-Basics-of-programming\II term\C-sharp\Labwork 1.1\obj\Release\Labwork 1.1.csproj.CoreCompileInputs.cache
 C:\Users\Дима\Desktop\Studying\Labs\Lab.-works.-Basics-of-programming\II term\C-sharp\Labwork 1.1\obj\Release\Labwork_1.exe
 C:\Users\Дима\Desktop\Studying\Labs\Lab.-works.-Basics-of-programming\II term\C-sharp\Labwork 1.1\obj\Release\Labwork_1.pdb
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\bin\Release\Labwork_1.exe.config
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\bin\Release\Labwork_1.exe
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\bin\Release\Labwork_1.pdb
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork 1.1.csproj.AssemblyReference.cache
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork_1.Form1.resources
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork_1.Properties.Resources.resources
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork 1.1.csproj.GenerateResource.cache
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork 1.1.csproj.CoreCompileInputs.cache
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork_1.exe
+C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\obj\Release\Labwork_1.pdb

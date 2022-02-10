@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b0b4a43d-691b-4713-8f72-75ecf3bc6046</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>src\Labwork_1.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>src\Labwork_1.1.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Labwork 1</Name>
+    <Name>Labwork 1.1</Name>
     <RootNamespace>Labwork 1</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -21,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\Labwork_1.py" />
+    <Compile Include="src\Labwork_1.1.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />

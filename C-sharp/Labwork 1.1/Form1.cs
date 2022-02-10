@@ -14,7 +14,7 @@ namespace Labwork_1
 {
     public partial class Form1 : Form
     {
-        private string path = @"C:\Users\Дима\Desktop\Studying\Labs\Lab.-works.-Basics-of-programming\II term\C-sharp\Labwork 1.1\Files\";
+        private string path = @"C:\Users\Дима\Desktop\Studying\Labs\prog_basics_2term\C-sharp\Labwork 1.1\Files\";
 
         public Form1()
         {
@@ -24,12 +24,13 @@ namespace Labwork_1
         private void Form1_Load(object sender, EventArgs e)
         {
             textBox2.Text = "0";
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label5.BackColor = System.Drawing.Color.White;
+            label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             textBox1.Enabled = false;
             richTextBox1.Enabled = false;
         }
 
+        // Creating of the source.txt file with default text
         private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Text = "Whoever fights monsters should see so that in the process he doesn't become a monster.\n" +
@@ -50,6 +51,7 @@ namespace Labwork_1
             label5.Text = "50%";
         }
 
+        // The opportunity to edit text
         private async void textBox1_TextChanged(object sender, EventArgs e)
         {
             WriteText();
@@ -64,6 +66,7 @@ namespace Labwork_1
             sourceFile.Close();
         }
 
+        // Forming of the second.txt file
         private void button3_Click(object sender, EventArgs e)
         {
             using (StreamReader first = new StreamReader(path + "source.txt"))
@@ -72,7 +75,8 @@ namespace Labwork_1
                 {
                     if (Convert.ToInt32(textBox2.Text) <= 0)
                     {
-                        DialogResult message = MessageBox.Show("The length equals to or less than 0.\n Do you want to continue?\n(the text won't change)", "Length exception", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult message = MessageBox.Show("The length equals to or less than 0.\nDo you want to continue?\n" +
+                            "(the text won't change)", "Length exception", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (message == DialogResult.No)
                         {
                             return;
@@ -99,6 +103,7 @@ namespace Labwork_1
             label5.Text = "100%";
         }
 
+        // Working with the source text to be formatted
         private string FormatToLength(string row, int length)
         {
             int i = 0;
@@ -118,6 +123,7 @@ namespace Labwork_1
             return row;
         }
 
+        // Creating of an empty source.txt file
         private void button4_Click(object sender, EventArgs e)
         {
             FileStream source = File.Open(path + "source.txt", FileMode.Create);

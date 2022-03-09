@@ -17,7 +17,13 @@ outputFileContent(path, "source.bin")
 print()
 
 # Selecting of products from initial list to the new file
-selectProductsToNewFile(path, productList, currentDate)
+selectedProducts = selectProductsToNewFile(path, productList, currentDate)
 
 print("The products whom existing term is going to the end (<= 10%):")
 outputFileContent(path, "destination.bin")
+
+print("\nThe products from total list were made for the last 10 (ten) days:\n")
+printProductsLastTenDaysMade(productList, currentDate)
+
+print("\nThe products from selected list were made for the last 10 (ten) days:\n")
+printProductsLastTenDaysMade(selectedProducts, currentDate)

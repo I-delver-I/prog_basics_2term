@@ -13,16 +13,29 @@ def createProductListInFile(path):
 
 def selectProductsToNewFile(path, productList, currentDate):
     productListBytes = bytearray()
+    selectedProducts = []
     i = 0
 
     while i < len(productList):
         if checkSelectQuery(productList[i], currentDate):
             product = bytearray(productList[i], 'utf-8')
             productListBytes.extend(product)
+            selectedProducts.append(productList[i])
         i += 1
 
     with open(path + "destination.bin", "wb") as destination:
         destination.write(productListBytes)
+    return selectedProducts
+
+def printProductsLastTenDaysMade(productList, currentDate):
+    for product in productList:
+        if checkProductIsMadeLastTenDays(product, currentDate):
+            print(product)
+
+def checkProductIsMadeLastTenDays(product, currentDate):
+    if (currentDate - datetime.datetime.fromisoformat(shlex.split(product)[1])).days <= 10:
+        return True
+    return False
 
 def checkSelectQuery(product, currentDate):
     creationDate = getCreationDate(product)

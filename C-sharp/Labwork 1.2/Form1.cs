@@ -48,22 +48,65 @@ namespace Labwork_1_2
             {
                 try
                 {
-                    Product product = new Product(richTextBox1.Text, richTextBox2.Text, richTextBox3.Text, Convert.ToDecimal(richTextBox4.Text));
-
-                    if (richTextBox6.Text is null)
+                    string errorMessage = CheckColumnsFilled();
+                    if (errorMessage != "")
                     {
-                        throw new ArgumentException("Please, enter the current date!");
+                        throw new ArgumentException(errorMessage);
                     }
+
+                    Product product = new Product(richTextBox1.Text, richTextBox2.Text, richTextBox3.Text, Convert.ToDecimal(richTextBox4.Text));
                     Date.CurrentDate = richTextBox6.Text;
+
                     product.CountRelationOfTimeLeft();
 
                     _formatter.Serialize(stream, product);
+                    ClearTextBoxes();
                 }
                 catch (ArgumentException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private string CheckColumnsFilled()
+        {
+            string result = "";
+
+            if (richTextBox1.Text is null)
+            {
+                return "Name column musn't be empty";
+            }
+
+            if (richTextBox2.Text is null)
+            {
+                return "Creation date column musn't be empty";
+            }
+
+            if (richTextBox3.Text is null)
+            {
+                return "Expiration date column musn't be empty";
+            }
+
+            if (richTextBox4.Text is null)
+            {
+                return "Price column musn't be empty";
+            }
+
+            if (richTextBox6.Text is null)
+            {
+                return "Please, enter the current date!";
+            }
+            
+            return result;
+        }
+
+        private void ClearTextBoxes()
+        {
+            richTextBox1.Text = "";
+            richTextBox2.Text = "";
+            richTextBox3.Text = "";
+            richTextBox4.Text = "";
         }
 
         //private byte[] ObjectToByteArray(object obj)

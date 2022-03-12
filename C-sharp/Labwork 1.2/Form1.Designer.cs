@@ -115,9 +115,9 @@ namespace Labwork_1_2
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(701, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 20);
+            this.label2.Size = new System.Drawing.Size(67, 20);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Price";
+            this.label2.Text = "Price ($)";
             // 
             // button1
             // 
@@ -199,7 +199,7 @@ namespace Labwork_1_2
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(291, 66);
             this.button4.TabIndex = 17;
-            this.button4.Text = "Print info about product which were created for last 10 days";
+            this.button4.Text = "Print info about products which were created for last 10 days";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -207,6 +207,8 @@ namespace Labwork_1_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Labwork_1._2.Properties.Resources._121;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1002, 377);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label6);

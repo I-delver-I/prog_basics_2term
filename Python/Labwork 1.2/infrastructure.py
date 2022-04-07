@@ -2,7 +2,7 @@ import keyboard
 import shlex
 import datetime
 
-def createProductListInFile(path):
+def getProductListAndInsertToFile(path):
     productList = []
     with open(path + "source.bin", "wb") as source:
         while not keyboard.is_pressed('shift'):
@@ -11,7 +11,7 @@ def createProductListInFile(path):
             productList.append(product)
     return productList
 
-def selectProductsToNewFile(path, productList, currentDate):
+def selectProductsToNewFileAndReturnThem(path, productList, currentDate):
     productListBytes = bytearray()
     selectedProducts = []
     i = 0
@@ -29,10 +29,10 @@ def selectProductsToNewFile(path, productList, currentDate):
 
 def printProductsLastTenDaysMade(productList, currentDate):
     for product in productList:
-        if checkProductIsMadeLastTenDays(product, currentDate):
+        if checkProductWasMadeLastTenDays(product, currentDate):
             print(product)
 
-def checkProductIsMadeLastTenDays(product, currentDate):
+def checkProductWasMadeLastTenDays(product, currentDate):
     if (currentDate - datetime.datetime.fromisoformat(shlex.split(product)[1])).days <= 10:
         return True
     return False
@@ -63,11 +63,12 @@ def outputFileContent(path, filename):
 
 def addProduct():
     attributes = []
-    attributes.append(input("Name (without spaces): "))
+    attributes.append(input("Name (use quotes to product has multiple words in its name): "))
     attributes.append(input("Creation date (YYYY-MM-DD): "))
     attributes.append(input("Expiry date (YYYY-MM-DD): "))
     attributes.append(input("Price (now you can end typing): ") + "$")
     product = ' '.join(attributes)
+    input("Press ENTER + SHIFT to end typing or ENTER to continue")
     if not keyboard.is_pressed('shift'):
         print("---------------------------------------------------\n")
         product += '\n'

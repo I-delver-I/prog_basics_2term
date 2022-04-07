@@ -16,16 +16,6 @@ def getProductsFromFile(path):
 
         return productsFromFile
 
-    # Obsolete
-def getProductListAndInsertToFile(path):
-    productList = []
-    with open(path + "source.bin", "wb") as source:
-        while not keyboard.is_pressed('shift'):
-            product = addProduct()
-            source.write(bytearray(product, 'utf-8'))
-            productList.append(product)
-    return productList
-
 def selectProductsToNewFile(path, currentDate):
     productList = getProductsFromFile(path + "source.bin")
     productListInBytes = bytearray('\n'.join(productList), 'utf-8')

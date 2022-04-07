@@ -1,79 +1,82 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ConsoleControl;
-using ConsoleControlAPI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Microsoft.SqlServer.Server;
+using Labwork_1._2.Handlers;
+using Labwork_1._2;
 
 namespace Labwork_1_2
 {
     public partial class Form1 : Form
     {
-        private string _path = @"C:\Users\Дима\Desktop\Studying\Labs\II term\prog_basics_2term\C-sharp\Labwork 1.2\files\";
-
-        private BinaryFormatter _formatter = new BinaryFormatter();
-
-        private List<Product> products = new List<Product>();
+        private string _basePath = @"C:\Users\Дима\Desktop\Studying\Labs\II term\prog_basics_2term\C-sharp\Labwork 1.2\files\";
+        readonly BinaryFormatter formatter = new BinaryFormatter();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e) 
         {
-            
-
+            formatter.Binder = new CustomBinder();
         }
 
+        /// <summary>
+        /// Creation of an empty binary file 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            FileStream streamSource = File.Create(_path + @"source.bat");
+            FileStream streamSource = File.Create(_basePath + @"source.bat");
             streamSource.Close();
-            File.Delete(_path + @"destination.bat");
+            File.Delete(_basePath + @"destination.bat");
+            richTextBox5.Text = "";
         }
 
+        /// <summary>
+        /// Adding of a product to file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            using (FileStream stream = new FileStream(_path + "source.bat", FileMode.Append))
+            using (FileStream sourceStream = new FileStream(_basePath + "source.bat", FileMode.Append))
             {
                 try
                 {
-                    string errorMessage = CheckColumnsFilled();
-                    if (errorMessage != "")
+                    string errorMessage = GetErrorMessageOrNull();
+                    if (errorMessage != null)
                     {
                         throw new ArgumentException(errorMessage);
                     }
 
-                    Product product = new Product(richTextBox1.Text, richTextBox2.Text, richTextBox3.Text, Convert.ToDecimal(richTextBox4.Text));
-                    Date.CurrentDate = richTextBox6.Text;
+                    Product product = new Product(richTextBox1.Text, richTextBox2.Text, richTextBox3.Text, 
+                        Convert.ToDecimal(richTextBox4.Text), richTextBox6.Text);
 
-                    product.CountRelationOfTimeLeft();
+                    product.TimeLeftRelation = ProductHandler.GetRelationOfTimeLeft(product);
 
-                    _formatter.Serialize(stream, product);
+                    formatter.Serialize(sourceStream, product);
                     ClearTextBoxes();
                 }
                 catch (ArgumentException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Price column musn't be empty");
+                }
             }
         }
 
-        private string CheckColumnsFilled()
+        private string GetErrorMessageOrNull()
         {
-            string result = "";
+            string result = null;
 
-            if (richTextBox1.Text is null)
+            if (richTextBox1.Text == "")
             {
                 return "Name column musn't be empty";
             }
@@ -86,11 +89,6 @@ namespace Labwork_1_2
             if (richTextBox3.Text is null)
             {
                 return "Expiration date column musn't be empty";
-            }
-
-            if (richTextBox4.Text is null)
-            {
-                return "Price column musn't be empty";
             }
 
             if (richTextBox6.Text is null)
@@ -109,61 +107,44 @@ namespace Labwork_1_2
             richTextBox4.Text = "";
         }
 
-        //private byte[] ObjectToByteArray(object obj)
-        //{
-        //    if (obj == null)
-        //        return null;
-        //    BinaryFormatter bf = new BinaryFormatter();
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        bf.Serialize(ms, obj);
-        //        return ms.ToArray();
-        //    }
-        //}
-
+        /// <summary>
+        /// Transfering products to a new file where expiration date goes to the end (<= 10% time left)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            using (FileStream mainStream = new FileStream(_path + "source.bat", FileMode.Open, FileAccess.Read))
+            using (FileStream sourceStream = new FileStream(_basePath + "source.bat", FileMode.Open, FileAccess.Read))
             {
-                while (mainStream.Position != mainStream.Length)
+                StringBuilder outputBuilder = new StringBuilder();
+                
+                while (sourceStream.Position != sourceStream.Length)
                 {
-                    Product newProduct = (Product)_formatter.Deserialize(mainStream);
+                    Product newProduct = (Product)formatter.Deserialize(sourceStream);
 
                     if (newProduct.TimeLeftRelation <= 0.1)
                     {
-                        using (FileStream write = new FileStream(_path + "destination.bat", FileMode.Append))
+                        using (FileStream destinationStream = new FileStream(_basePath + "destination.bat", FileMode.Append))
                         {
-                            _formatter.Serialize(write, newProduct);
-                            richTextBox5.Text += newProduct.ToString();
+                            formatter.Serialize(destinationStream, newProduct);
                         }
+                        
+                        outputBuilder.Append(newProduct.ToString());
                     }
                 }
+
+                richTextBox5.Text += outputBuilder.ToString();
             }
         }
 
-        private void PrintInfoProductsLastTenDaysCreated()
-        {
-            StringBuilder productsList = new StringBuilder(); 
-
-            using (FileStream sourceStream = new FileStream(_path + "source.bat", FileMode.Open, FileAccess.Read))
-            {
-                while (sourceStream.Position != sourceStream.Length)
-                {
-                    Product product = (Product)_formatter.Deserialize(sourceStream);
-
-                    if (product.ExistingTerm.CountDaysBySubstractingDates(Date.CurrentDate, product.ExistingTerm.CreationDate) <= 10) 
-                    {
-                        productsList.Append(product.ToString());
-                    }
-                }
-            }
-
-            MessageBox.Show("This is the list of products:\n\n" + productsList.ToString());
-        }
-
+        /// <summary>
+        /// Printing info about products which were created for last 10 days
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            PrintInfoProductsLastTenDaysCreated();
+            ProductHandler.PrintInfoProductsLastTenDaysCreated(_basePath);
         }
     }
 }

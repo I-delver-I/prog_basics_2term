@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Labwork_1_2
 {
@@ -15,10 +11,7 @@ namespace Labwork_1_2
         private string _creationDate;
         public string CreationDate
         {
-            get
-            {
-                return _creationDate;
-            }
+            get => _creationDate;
             set
             {
                 if (_datePattern.IsMatch(value))
@@ -35,10 +28,7 @@ namespace Labwork_1_2
         private string _expirationDate;
         public string ExpirationDate
         {
-            get
-            {
-                return _expirationDate;
-            }
+            get => _expirationDate;
             set
             {
                 if (_datePattern.IsMatch(value))
@@ -52,13 +42,10 @@ namespace Labwork_1_2
             }
         }
 
-        private static string _currentDate;
-        public static string CurrentDate 
+        private string _currentDate;
+        public string CurrentDate 
         {
-            get
-            {
-                return _currentDate;
-            }
+            get => _currentDate;
             set
             {
                 if (_datePattern.IsMatch(value))
@@ -70,19 +57,6 @@ namespace Labwork_1_2
                     throw new ArgumentException("The entered current date isn't valid");
                 }
             }
-        }
-
-        public int CountDaysBySubstractingDates(string firstDate, string secondDate)
-        {
-            List<string> firstDateAsNumbers = firstDate.Split('-').ToList();
-            List<string> secondDateAsNumbers = secondDate.Split('-').ToList();
-            int daysCount = 0;
-
-            daysCount += Math.Abs(int.Parse(firstDateAsNumbers[0]) - int.Parse(secondDateAsNumbers[0]));    // Day
-            daysCount += Math.Abs(int.Parse(firstDateAsNumbers[1]) - int.Parse(secondDateAsNumbers[1])) * 30;   // Month
-            daysCount += Math.Abs(int.Parse(firstDateAsNumbers[2]) - int.Parse(secondDateAsNumbers[2])) * 365;  // Year
-            
-            return daysCount;
         }
     }
 }

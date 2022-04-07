@@ -9,7 +9,8 @@ namespace Labwork_2
         static void Main(string[] args)
         {
             List<Worker> workers = new List<Worker>();
-            
+            DateTime currentDate = GetCurrentDate();
+
             Console.WriteLine("Please, enter the data of worker you want to add to the list:\n");
             
             do
@@ -21,7 +22,7 @@ namespace Labwork_2
 
             Console.WriteLine(Environment.NewLine);
             Worker foundWorker = Worker.GetWorkerWithHighestExperience(workers);
-            foundWorker.WorkExperience = GetCurrentDate().Subtract(foundWorker.HiringDate);
+            foundWorker.SetWorkExperience(currentDate);
             
             if (foundWorker.WorkExperience > TimeSpan.Zero)
             {

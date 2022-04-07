@@ -10,7 +10,7 @@ namespace Labwork_2
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         public DateTime HiringDate { get; set; }
-        public TimeSpan WorkExperience { get; set; }
+        public TimeSpan WorkExperience { get; set; } = TimeSpan.Zero;
 
         public Worker(string name, string surname, string patronymic, DateTime hiringDate)
         {
@@ -23,9 +23,11 @@ namespace Labwork_2
         public Worker() { }
 
         public static Worker GetWorkerWithHighestExperience(List<Worker> workers) => workers.Min();
+        
+        public void SetWorkExperience(DateTime currentDate) => WorkExperience = currentDate.Subtract(HiringDate);
 
-        public override string ToString() => $"[Name: { Name }; Surname: { Surname }; " +
-            $"Patronymic: { Patronymic }; HiringDate: { HiringDate.Date }; WorkExperience: { WorkExperience.TotalDays }]";
+        public override string ToString() => $"[Name: { Name }; Surname: { Surname }; Patronymic:" +
+            $" { Patronymic }; HiringDate: { HiringDate.Date }; WorkExperience: { WorkExperience.TotalDays }]";
 
         public override bool Equals(object obj) => (obj is Worker worker) && worker.HiringDate.Equals(HiringDate);
 

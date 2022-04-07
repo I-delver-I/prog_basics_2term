@@ -2,6 +2,21 @@ import keyboard
 import shlex
 import datetime
 
+def fillSourceFileWithProducts(path):
+    with open(path + "source.bin", "wb") as source:
+        while not keyboard.is_pressed('shift'):
+            product = addProduct()
+            source.write(bytearray(product, 'utf-8'))
+
+def getProductsFromFile(path):
+    with open(path, "rb") as file:
+        productsFromFile = file.read().decode('utf-8').split('\n')
+        for product in productsFromFile:
+            product += '\n'
+
+        return productsFromFile
+
+    # Obsolete
 def getProductListAndInsertToFile(path):
     productList = []
     with open(path + "source.bin", "wb") as source:
@@ -11,21 +26,12 @@ def getProductListAndInsertToFile(path):
             productList.append(product)
     return productList
 
-def selectProductsToNewFileAndReturnThem(path, productList, currentDate):
-    productListBytes = bytearray()
-    selectedProducts = []
-    i = 0
-
-    while i < len(productList):
-        if checkSelectQuery(productList[i], currentDate):
-            product = bytearray(productList[i], 'utf-8')
-            productListBytes.extend(product)
-            selectedProducts.append(productList[i])
-        i += 1
-
+def selectProductsToNewFile(path, currentDate):
+    productList = getProductsFromFile(path + "source.bin")
+    productListInBytes = bytearray('\n'.join(productList), 'utf-8')
+       
     with open(path + "destination.bin", "wb") as destination:
-        destination.write(productListBytes)
-    return selectedProducts
+        destination.write(productListInBytes)
 
 def printProductsLastTenDaysMade(productList, currentDate):
     for product in productList:
@@ -55,11 +61,12 @@ def getCreationDate(product):
     creationDate = list(shlex.split(product))[1]
     return datetime.datetime.fromisoformat(creationDate)
 
-def outputFileContent(path, filename):
-    with open(path + filename, "rb") as source:
+def outputFileContent(path):
+    with open(path, "rb") as source:
         stringsFromFile = source.read().decode('utf-8').split('\n')
         for string in stringsFromFile:
             print(string)
+        print('\n')
 
 def addProduct():
     attributes = []

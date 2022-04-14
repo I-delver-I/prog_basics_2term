@@ -30,14 +30,21 @@ namespace Labwork_1_2
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            FileStream streamSource = File.Create(_basePath + @"source.bat");
-            streamSource.Close();
-            File.Delete(_basePath + @"destination.bat");
-            richTextBox5.Text = "";
+            if (Directory.Exists(_basePath))
+            {
+                FileStream streamSource = File.Create(_basePath + @"source.bat");
+                streamSource.Close();
+                File.Delete(_basePath + @"destination.bat");
+                richTextBox5.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("The given directory doesn't exist");
+            }
         }
 
         /// <summary>
-        /// Adding of a product to file
+        /// Adding of a product to the source file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -55,7 +62,6 @@ namespace Labwork_1_2
 
                     Product product = new Product(richTextBox1.Text, richTextBox2.Text, richTextBox3.Text, 
                         Convert.ToDecimal(richTextBox4.Text), richTextBox6.Text);
-
                     product.TimeLeftRelation = ProductHandler.GetRelationOfTimeLeft(product);
 
                     formatter.Serialize(sourceStream, product);
@@ -67,7 +73,7 @@ namespace Labwork_1_2
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Price column musn't be empty");
+                    MessageBox.Show("Price column hold incorrect data");
                 }
             }
         }

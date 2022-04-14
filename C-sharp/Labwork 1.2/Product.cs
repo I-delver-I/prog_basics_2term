@@ -7,9 +7,7 @@ namespace Labwork_1_2
     {
         public string Name { get; set; }
         public Date ExistingTerm { get; set; }
-
         public decimal Price { get; set; }
-
         public double TimeLeftRelation { get; set; }
 
         public Product(string Name, string CreationDate, string ExpirationDate, decimal Price, string CurrentDate)

@@ -56,7 +56,7 @@ namespace Labwork_2
             // Print info about the most experienced worker
             Worker mostExperiencedWorker = Worker.GetWorkerWithHighestExperience(currentDate);
             int workerExperienceInMonths = (currentDate - mostExperiencedWorker.HiringDate).Days / 30;
-            if (workerExperienceInMonths > 0)
+            if (workerExperienceInMonths > 0 && mostExperiencedWorker.HiringDate != DateTime.MinValue)
             {
                 Console.WriteLine($"The worker { mostExperiencedWorker } has the highest experience:" +
                 $" { workerExperienceInMonths } months");

@@ -4,13 +4,14 @@ using System.Linq;
 
 namespace Labwork_2
 {
-    public class Worker : IComparable
+    public class Worker
     {
+        private static List<Worker> _workers = new List<Worker>();
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         public DateTime HiringDate { get; set; }
-        public TimeSpan WorkExperience { get; set; } = TimeSpan.Zero;
 
         public Worker(string name, string surname, string patronymic, DateTime hiringDate)
         {
@@ -18,19 +19,32 @@ namespace Labwork_2
             Surname = surname;
             Patronymic = patronymic;
             HiringDate = hiringDate;
+            _workers.Add(this);
         }
 
-        public Worker() { }
+        public Worker()
+        {
+            _workers.Add(this);
+        }
 
-        public static Worker GetWorkerWithHighestExperience(List<Worker> workers) => workers.Min();
-        
-        public void SetWorkExperience(DateTime currentDate) => WorkExperience = currentDate.Subtract(HiringDate);
+        public static Worker GetWorkerWithHighestExperience(DateTime currentDate)
+        {
+            DateTime theEarliestHiringDate = DateTime.MaxValue;
+            Worker mostExperiencedWorker = new Worker();
+
+            foreach (var worker in _workers)
+            {
+                if (worker.HiringDate < theEarliestHiringDate && worker.HiringDate != default)
+                {
+                    theEarliestHiringDate = worker.HiringDate;
+                    mostExperiencedWorker = worker;
+                }
+            }
+
+            return mostExperiencedWorker;
+        }
 
         public override string ToString() => $"[Name: { Name }; Surname: { Surname }; Patronymic:" +
-            $" { Patronymic }; HiringDate: { HiringDate.Date }; WorkExperience: { WorkExperience.TotalDays }]";
-
-        public override bool Equals(object obj) => (obj is Worker worker) && worker.HiringDate.Equals(HiringDate);
-
-        public int CompareTo(object obj) => (obj is Worker worker) ? HiringDate.CompareTo(worker.HiringDate) : -1;
+            $" { Patronymic }; HiringDate: { HiringDate.Date }]";
     }
 }

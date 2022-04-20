@@ -8,47 +8,14 @@ namespace Labwork_2
     {
         static void Main(string[] args)
         {
-            List<Worker> workers = new List<Worker>();
-            DateTime currentDate = GetCurrentDate();
+            DateTime currentDate = new DateTime();
 
-            Console.WriteLine("Please, enter the data of worker you want to add to the list:\n");
-            
-            do
+            while (currentDate == default)
             {
-                workers.Add(GetWorker());
-                Console.WriteLine("Hit \'Delete\' key to end typing or any other one to continue\n");
-            }
-            while (Console.ReadKey().Key != ConsoleKey.Delete);
-
-            Console.WriteLine(Environment.NewLine);
-            Worker foundWorker = Worker.GetWorkerWithHighestExperience(workers);
-            foundWorker.SetWorkExperience(currentDate);
-            
-            if (foundWorker.WorkExperience > TimeSpan.Zero)
-            {
-                Console.WriteLine($"The worker with the highest experience is:\n" +
-                $" { foundWorker } who worked for { foundWorker.WorkExperience.Days / 365 } years and { foundWorker.WorkExperience.Days % 365 / 30 } month");
-            }
-            else
-            {
-                Console.WriteLine("The list doesn't have workers hired before the current date");
-            }
-        }
-
-        public static DateTime GetCurrentDate()
-        {
-            DateTime currentDate = default;
-            bool noFormatException = true;
-
-            while (noFormatException)
-            {
-                noFormatException = true;
-
-                Console.WriteLine("Enter the ending period of worker experience: ");
+                Console.WriteLine("Enter the current date: ");
                 try
                 {
                     currentDate = Convert.ToDateTime(Console.ReadLine());
-                    noFormatException = false;
                 }
                 catch (FormatException ex)
                 {
@@ -56,31 +23,48 @@ namespace Labwork_2
                 }
             }
 
-            return currentDate;
-        }
-
-        public static Worker GetWorker()
-        {
-            Worker worker = new Worker();
+            Console.WriteLine("Please, enter the data of workers you want to add to the list:\n");
             
-            Console.Write("Name: ");
-            worker.Name = Console.ReadLine();
-            Console.Write("Surname: ");
-            worker.Surname = Console.ReadLine();
-            Console.Write("Patronymic: ");
-            worker.Patronymic = Console.ReadLine();
-            Console.Write("Hiring Date: ");
-            try
+            // Adding of workers to the list by matching their fields
+            do
             {
-                worker.HiringDate = Convert.ToDateTime(Console.ReadLine());
-            }
-            catch (FormatException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+                Worker worker = new Worker();
+                Console.Write("Name: ");
+                worker.Name = Console.ReadLine();
+                Console.Write("Surname: ");
+                worker.Surname = Console.ReadLine();
+                Console.Write("Patronymic: ");
+                worker.Patronymic = Console.ReadLine();
+                
+                Console.Write("Hiring Date: ");
+                try
+                {
+                    worker.HiringDate = Convert.ToDateTime(Console.ReadLine());
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("The default hiring date would be assigned");
+                } 
 
-            return worker;
+                Console.WriteLine("Hit \'Delete\' key to end typing or any other one to continue\n");
+            }
+            while (Console.ReadKey().Key != ConsoleKey.Delete);
+
+            Console.WriteLine(Environment.NewLine);
+
+            // Print info about the most experienced worker
+            Worker mostExperiencedWorker = Worker.GetWorkerWithHighestExperience(currentDate);
+            int workerExperienceInMonths = (currentDate - mostExperiencedWorker.HiringDate).Days / 30;
+            if (workerExperienceInMonths > 0)
+            {
+                Console.WriteLine($"The worker { mostExperiencedWorker } has the highest experience:" +
+                $" { workerExperienceInMonths } months");
+            }
+            else
+            {
+                Console.WriteLine("There is no worker having some experience at work");
+            }
         }
     }
 }

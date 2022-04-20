@@ -22,15 +22,18 @@ namespace Labwork_2
             _workers.Add(this);
         }
 
-        public Worker()
+        public Worker(bool addToList)
         {
-            _workers.Add(this);
+            if (addToList)
+            {
+                _workers.Add(this);
+            }
         }
 
         public static Worker GetWorkerWithHighestExperience(DateTime currentDate)
         {
             DateTime theEarliestHiringDate = DateTime.MaxValue;
-            Worker mostExperiencedWorker = new Worker();
+            Worker mostExperiencedWorker = new Worker(false);
 
             foreach (var worker in _workers)
             {

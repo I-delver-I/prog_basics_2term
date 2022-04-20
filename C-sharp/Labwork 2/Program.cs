@@ -28,24 +28,27 @@ namespace Labwork_2
             // Adding of workers to the list by matching their fields
             do
             {
-                Worker worker = new Worker();
+                Worker worker = new Worker(true);
                 Console.Write("Name: ");
                 worker.Name = Console.ReadLine();
                 Console.Write("Surname: ");
                 worker.Surname = Console.ReadLine();
                 Console.Write("Patronymic: ");
                 worker.Patronymic = Console.ReadLine();
-                
-                Console.Write("Hiring Date: ");
-                try
+
+                do
                 {
-                    worker.HiringDate = Convert.ToDateTime(Console.ReadLine());
-                }
-                catch (FormatException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("The default hiring date would be assigned");
-                } 
+                    Console.Write("Hiring Date: ");
+                    try
+                    {
+                        worker.HiringDate = Convert.ToDateTime(Console.ReadLine());
+                    }
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        worker.HiringDate = default;
+                    }
+                } while (worker.HiringDate == default);
 
                 Console.WriteLine("Hit \'Delete\' key to end typing or any other one to continue\n");
             }
@@ -55,11 +58,16 @@ namespace Labwork_2
 
             // Print info about the most experienced worker
             Worker mostExperiencedWorker = Worker.GetWorkerWithHighestExperience(currentDate);
-            int workerExperienceInMonths = (currentDate - mostExperiencedWorker.HiringDate).Days / 30;
-            if (workerExperienceInMonths > 0 && mostExperiencedWorker.HiringDate != DateTime.MinValue)
+            const int CountOfDaysInMonth = 30;
+            const int CountOfDaysInYear = 365;
+            int workerExperienceInDays = (currentDate - mostExperiencedWorker.HiringDate).Days;
+            int workerExperienceInMonths = workerExperienceInDays % CountOfDaysInYear / CountOfDaysInMonth;
+            int workerExperienceInYears = workerExperienceInDays / CountOfDaysInYear;
+
+            if (workerExperienceInMonths > 0)
             {
-                Console.WriteLine($"The worker { mostExperiencedWorker } has the highest experience:" +
-                $" { workerExperienceInMonths } months");
+                Console.WriteLine($"The worker { mostExperiencedWorker } has the highest experience: " +
+                $"{ workerExperienceInYears } years and { workerExperienceInMonths } months");
             }
             else
             {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace Labwork_2
 {
@@ -28,7 +26,7 @@ namespace Labwork_2
             // Adding of workers to the list by matching their fields
             do
             {
-                Worker worker = new Worker(true);
+                Worker worker = new Worker();
                 Console.Write("Name: ");
                 worker.Name = Console.ReadLine();
                 Console.Write("Surname: ");
@@ -46,7 +44,6 @@ namespace Labwork_2
                     catch (FormatException ex)
                     {
                         Console.WriteLine(ex.Message);
-                        worker.HiringDate = default;
                     }
                 } while (worker.HiringDate == default);
 
@@ -57,17 +54,19 @@ namespace Labwork_2
             Console.WriteLine(Environment.NewLine);
 
             // Print info about the most experienced worker
-            Worker mostExperiencedWorker = Worker.GetWorkerWithHighestExperience(currentDate);
+            Worker mostExperiencedWorker = Worker.GetWorkerWithHighestExperience();
             const int CountOfDaysInMonth = 30;
             const int CountOfDaysInYear = 365;
             int workerExperienceInDays = (currentDate - mostExperiencedWorker.HiringDate).Days;
-            int workerExperienceInMonths = workerExperienceInDays % CountOfDaysInYear / CountOfDaysInMonth;
-            int workerExperienceInYears = workerExperienceInDays / CountOfDaysInYear;
+            int partOfExperienceInDays = workerExperienceInDays % CountOfDaysInYear % CountOfDaysInMonth;
+            int partOfExperienceInMonths = workerExperienceInDays % CountOfDaysInYear / CountOfDaysInMonth;
+            int partOfExperienceInYears = workerExperienceInDays / CountOfDaysInYear;
 
-            if (workerExperienceInMonths > 0)
+            if (partOfExperienceInMonths > 0 || partOfExperienceInYears > 0 || partOfExperienceInDays > 0)
             {
                 Console.WriteLine($"The worker { mostExperiencedWorker } has the highest experience: " +
-                $"{ workerExperienceInYears } years and { workerExperienceInMonths } months");
+                $"{ partOfExperienceInYears } years, { partOfExperienceInMonths } months and" +
+                $" { partOfExperienceInDays } days");
             }
             else
             {

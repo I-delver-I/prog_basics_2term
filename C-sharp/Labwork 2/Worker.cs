@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Labwork_2
 {
@@ -22,25 +21,22 @@ namespace Labwork_2
             _workers.Add(this);
         }
 
-        public Worker(bool addToList)
+        public Worker()
         {
-            if (addToList)
-            {
-                _workers.Add(this);
-            }
+            _workers.Add(this);
         }
 
-        public static Worker GetWorkerWithHighestExperience(DateTime currentDate)
+        public static Worker GetWorkerWithHighestExperience()
         {
-            DateTime theEarliestHiringDate = DateTime.MaxValue;
-            Worker mostExperiencedWorker = new Worker(false);
+            DateTime theEarliestHiringDate = _workers[0].HiringDate;
+            Worker mostExperiencedWorker = _workers[0];
 
-            foreach (var worker in _workers)
+            for (int i = 1; i < _workers.Count; i++)
             {
-                if (worker.HiringDate < theEarliestHiringDate && worker.HiringDate != default)
+                if (_workers[i].HiringDate < theEarliestHiringDate)
                 {
-                    theEarliestHiringDate = worker.HiringDate;
-                    mostExperiencedWorker = worker;
+                    theEarliestHiringDate = _workers[i].HiringDate;
+                    mostExperiencedWorker = _workers[i];
                 }
             }
 

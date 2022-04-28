@@ -1,6 +1,5 @@
 ﻿using System;
 using Labwork_3.LineSegment;
-using System.Collections.Generic;
 
 namespace Labwork_3.MainFlow
 {
@@ -12,14 +11,15 @@ namespace Labwork_3.MainFlow
 
             LineSegmentModel firstLineSegment = DataCapturer.CaptureLineSegmentSpecifyingTwoPoints();
             Console.WriteLine($"The first line segment was created successfully! { Environment.NewLine }");
+
             LineSegmentModel secondLineSegment = DataCapturer.CaptureLineSegmentSpecifyingOnePoint();
-            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine($"The second line segment was created successfully! { Environment.NewLine }");
+
             LineSegmentModel thirdLineSegment = new LineSegmentModel();
             Console.WriteLine(Environment.NewLine);
 
             DataChecker.CheckForLinesParallelism(firstLineSegment, secondLineSegment);
-            ++thirdLineSegment;
-            Console.WriteLine($"{ thirdLineSegment } was successfully incremented!");
+            Console.WriteLine($"The line segment { ++thirdLineSegment } was successfully incremented!");
 
             Console.WriteLine($"The length of the third line segment is " +
                 $"{ LineSegmentHandler.GetLineSegmentLength(thirdLineSegment) }");

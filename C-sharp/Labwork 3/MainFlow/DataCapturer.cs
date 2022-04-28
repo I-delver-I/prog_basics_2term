@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Labwork_3.LineSegment;
 
 namespace Labwork_3.MainFlow
@@ -33,13 +32,11 @@ namespace Labwork_3.MainFlow
                 catch (FormatException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Console.WriteLine(Environment.NewLine);
                     exceptionIsCaught = true;
                 }
                 catch (IndexOutOfRangeException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Console.WriteLine(Environment.NewLine);
                     exceptionIsCaught = true;
                 }
             } while (exceptionIsCaught);

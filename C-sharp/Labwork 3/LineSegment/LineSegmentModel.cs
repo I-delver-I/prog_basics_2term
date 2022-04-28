@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Labwork_3.LineSegment
 {
     public class LineSegmentModel
@@ -51,10 +48,10 @@ namespace Labwork_3.LineSegment
                 return true;
             }
 
-            // The second condition of parallelism of line segments
             double m1 = (d1 - b1) / (c1 - a1);
             double m2 = (d2 - b2) / (c2 - a2);
 
+            // The second condition of parallelism of line segments
             if (m1 == m2)
             {
                 return true;

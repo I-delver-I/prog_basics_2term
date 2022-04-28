@@ -27,6 +27,7 @@ namespace Labwork_3.MainFlow
 
                     Console.Write($"Please, enter value for Y axis for the point: ");
                     newPoint.Yaxis = Convert.ToDouble(Console.ReadLine());
+
                     Console.WriteLine("The point was created successfully!\n");
                 }
                 catch (FormatException ex)

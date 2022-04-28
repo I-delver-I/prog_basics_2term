@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Labwork_3.LineSegment;
 
 namespace Labwork_3.MainFlow
 {
-    public class DataChecker
+    public static class DataChecker
     {
         public static void CheckForLinesParallelism(LineSegmentModel firstSegment, LineSegmentModel secondSegment)
         {

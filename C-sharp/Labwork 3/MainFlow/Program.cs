@@ -3,7 +3,7 @@ using Labwork_3.LineSegment;
 
 namespace Labwork_3.MainFlow
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
@@ -16,7 +16,7 @@ namespace Labwork_3.MainFlow
             Console.WriteLine($"The second line segment was created successfully! { Environment.NewLine }");
 
             LineSegmentModel thirdLineSegment = new LineSegmentModel();
-            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine($"The third line segment was created! { Environment.NewLine }");
 
             DataChecker.CheckForLinesParallelism(firstLineSegment, secondLineSegment);
             Console.WriteLine($"The line segment { ++thirdLineSegment } was successfully incremented!");

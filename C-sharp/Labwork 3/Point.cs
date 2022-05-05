@@ -1,4 +1,6 @@
 ﻿
+using System.Drawing;
+
 namespace Labwork_3
 {
     public class Point
@@ -25,6 +27,16 @@ namespace Labwork_3
             point.Xaxis++;
             point.Yaxis++;
             return point;
+        }
+
+        public static bool operator ==(Point firstPoint, Point secondPoint)
+        {
+            return (firstPoint.Xaxis == secondPoint.Xaxis) && (firstPoint.Yaxis == secondPoint.Yaxis);
+        }
+
+        public static bool operator !=(Point firstPoint, Point secondPoint)
+        {
+            return !((firstPoint.Xaxis == secondPoint.Xaxis) && (firstPoint.Yaxis == secondPoint.Yaxis));
         }
     }
 }

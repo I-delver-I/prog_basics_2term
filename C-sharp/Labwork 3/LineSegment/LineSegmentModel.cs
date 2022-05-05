@@ -20,8 +20,8 @@ namespace Labwork_3.LineSegment
 
         public LineSegmentModel()
         {
-            BeginPoint = new Point();
-            EndPoint = new Point();
+            BeginPoint = new Point(1);
+            EndPoint = new Point(0);
         }
 
         public static LineSegmentModel operator ++(LineSegmentModel lineSegment)

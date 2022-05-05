@@ -5,9 +5,46 @@ namespace Labwork_3.MainFlow
 {
     public static class DataCapturer
     {
-        public static LineSegmentModel CaptureLineSegmentSpecifyingTwoPoints()
+        public static LineSegmentModel CaptureLineSegment()
         {
-            return new LineSegmentModel(CapturePoint(), CapturePoint());
+            LineSegmentModel result = new LineSegmentModel();
+            bool exceptionIsThrown;
+
+            do
+            {
+                try
+                {
+                    exceptionIsThrown = false;
+
+                    Console.WriteLine("Please, choose the count of points you are able to enter:");
+                    int count = Convert.ToInt32(Console.ReadLine());
+
+                    result = count switch
+                    {
+                        1 => new LineSegmentModel(CapturePoint()),
+                        2 => new LineSegmentModel(CapturePoint(), CapturePoint()),
+                        _ => throw new ArgumentException("Please, enter 1 or 2 points to capture"),
+                    };
+
+                    if (!LineSegmentHandler.CheckLineSegmentIsValid(result))
+                    {
+                        exceptionIsThrown = true;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("You entered not a number");
+                    exceptionIsThrown = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    exceptionIsThrown = true;
+                }
+                
+            } while (exceptionIsThrown);
+
+            return result;
         }
 
         public static Point CapturePoint()
@@ -30,9 +67,9 @@ namespace Labwork_3.MainFlow
 
                     Console.WriteLine("The point was created successfully!\n");
                 }
-                catch (FormatException ex)
+                catch (FormatException)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("You entered not a number");
                     exceptionIsCaught = true;
                 }
                 catch (IndexOutOfRangeException ex)
@@ -43,11 +80,6 @@ namespace Labwork_3.MainFlow
             } while (exceptionIsCaught);
 
             return newPoint;
-        }
-
-        public static LineSegmentModel CaptureLineSegmentSpecifyingOnePoint()
-        {
-            return new LineSegmentModel(CapturePoint());
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Labwork_3.MainFlow
             }
             else
             {
-                Console.WriteLine("The first and second line segments are not parallel!\n");
+                Console.WriteLine("The first and second line segments are NOT parallel!\n");
             }
         }
     }

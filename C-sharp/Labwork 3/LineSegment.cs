@@ -62,14 +62,14 @@ namespace Labwork_3
             return false;
         }
 
-        public static double GetLineSegmentLength(LineSegment lineSegment)
+        public static double GetLength(LineSegment lineSegment)
         {
             // sqrt((x1-x2)^2 + (y1-y2)^2)
             return Math.Sqrt(Math.Pow(lineSegment.BeginPoint.Xaxis - lineSegment.EndPoint.Xaxis, 2)
                 + Math.Pow(lineSegment.BeginPoint.Yaxis - lineSegment.EndPoint.Yaxis, 2));
         }
 
-        public static bool LineSegmentIsValid(LineSegment lineSegment)
+        public static bool IsValid(LineSegment lineSegment)
         {
             try
             {

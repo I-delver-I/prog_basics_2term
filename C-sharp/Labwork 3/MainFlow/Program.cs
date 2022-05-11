@@ -26,7 +26,7 @@ namespace Labwork_3.MainFlow
             Console.WriteLine($"The third line segment {++thirdLineSegment} was successfully incremented! {Environment.NewLine}");
 
             Console.WriteLine($"The length of the third line segment is " +
-                $"{LineSegment.GetLineSegmentLength(thirdLineSegment)}");
+                $"{LineSegment.GetLength(thirdLineSegment)}");
         }
 
         static void PrintDashLine()

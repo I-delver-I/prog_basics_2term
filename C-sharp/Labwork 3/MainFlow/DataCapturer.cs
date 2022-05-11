@@ -25,7 +25,7 @@ namespace Labwork_3.MainFlow
                         _ => throw new ArgumentException("Please, enter 1 or 2 points to capture"),
                     };
 
-                    if (!LineSegment.LineSegmentIsValid(result))
+                    if (!LineSegment.IsValid(result))
                     {
                         exceptionIsThrown = true;
                     }

@@ -1,11 +1,10 @@
 ﻿using System;
-using Labwork_3.LineSegment;
 
 namespace Labwork_3.MainFlow
 {
     public static class DataChecker
     {
-        public static void CheckForLinesParallelism(LineSegmentModel firstSegment, LineSegmentModel secondSegment)
+        public static void CheckForLinesParallelism(LineSegment firstSegment, LineSegment secondSegment)
         {
             if (firstSegment | secondSegment)
             {

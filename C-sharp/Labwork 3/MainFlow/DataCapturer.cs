@@ -1,13 +1,12 @@
 ﻿using System;
-using Labwork_3.LineSegment;
 
 namespace Labwork_3.MainFlow
 {
     public static class DataCapturer
     {
-        public static LineSegmentModel CaptureLineSegment()
+        public static LineSegment CaptureLineSegment()
         {
-            LineSegmentModel result = new LineSegmentModel();
+            LineSegment result = new LineSegment();
             bool exceptionIsThrown;
 
             do
@@ -21,12 +20,12 @@ namespace Labwork_3.MainFlow
 
                     result = count switch
                     {
-                        1 => new LineSegmentModel(CapturePoint()),
-                        2 => new LineSegmentModel(CapturePoint(), CapturePoint()),
+                        1 => new LineSegment(CapturePoint()),
+                        2 => new LineSegment(CapturePoint(), CapturePoint()),
                         _ => throw new ArgumentException("Please, enter 1 or 2 points to capture"),
                     };
 
-                    if (!LineSegmentHandler.CheckLineSegmentIsValid(result))
+                    if (!LineSegment.LineSegmentIsValid(result))
                     {
                         exceptionIsThrown = true;
                     }

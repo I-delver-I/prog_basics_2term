@@ -1,6 +1,4 @@
 ﻿
-using System.Drawing;
-
 namespace Labwork_3
 {
     public class Point
@@ -29,14 +27,26 @@ namespace Labwork_3
             return point;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                 return false;
+            }
+
+            Point point = (Point)obj;
+
+            return (Xaxis == point.Xaxis && Yaxis == point.Yaxis);
+        }
+
         public static bool operator ==(Point firstPoint, Point secondPoint)
         {
-            return (firstPoint.Xaxis == secondPoint.Xaxis) && (firstPoint.Yaxis == secondPoint.Yaxis);
+            return firstPoint.Equals(secondPoint);
         }
 
         public static bool operator !=(Point firstPoint, Point secondPoint)
         {
-            return !((firstPoint.Xaxis == secondPoint.Xaxis) && (firstPoint.Yaxis == secondPoint.Yaxis));
+            return !firstPoint.Equals(secondPoint);
         }
     }
 }

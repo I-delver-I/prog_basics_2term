@@ -1,36 +1,38 @@
 ﻿
-namespace Labwork_3.LineSegment
+using System;
+
+namespace Labwork_3
 {
-    public class LineSegmentModel
+    public class LineSegment
     {
         public Point BeginPoint { get; set; }
         public Point EndPoint { get; set; }
 
-        public LineSegmentModel(Point beginPoint, Point endPoint)
+        public LineSegment(Point beginPoint, Point endPoint)
         {
             BeginPoint = beginPoint;
             EndPoint = endPoint;
         }
 
-        public LineSegmentModel(Point sharedPoint)
+        public LineSegment(Point sharedPoint)
         {
             BeginPoint = new Point(sharedPoint.Xaxis);
             EndPoint = new Point(sharedPoint.Yaxis);
         }
 
-        public LineSegmentModel()
+        public LineSegment()
         {
             BeginPoint = new Point(1);
             EndPoint = new Point(0);
         }
 
-        public static LineSegmentModel operator ++(LineSegmentModel lineSegment)
+        public static LineSegment operator ++(LineSegment lineSegment)
         {
             ++lineSegment.BeginPoint;
             return lineSegment;
         }
 
-        public static bool operator |(LineSegmentModel firstSegment, LineSegmentModel secondSegment)
+        public static bool operator |(LineSegment firstSegment, LineSegment secondSegment)
         {
             // P1(a1, b1), P2(c1, d1), P3(a2, b2), P4(c2, d2)
             double a1 = firstSegment.BeginPoint.Xaxis;
@@ -58,6 +60,31 @@ namespace Labwork_3.LineSegment
             }
 
             return false;
+        }
+
+        public static double GetLineSegmentLength(LineSegment lineSegment)
+        {
+            // sqrt((x1-x2)^2 + (y1-y2)^2)
+            return Math.Sqrt(Math.Pow(lineSegment.BeginPoint.Xaxis - lineSegment.EndPoint.Xaxis, 2)
+                + Math.Pow(lineSegment.BeginPoint.Yaxis - lineSegment.EndPoint.Yaxis, 2));
+        }
+
+        public static bool LineSegmentIsValid(LineSegment lineSegment)
+        {
+            try
+            {
+                if (lineSegment.BeginPoint == lineSegment.EndPoint)
+                {
+                    throw new ArgumentException("The line segment length should be more than 0");
+                }
+
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         public override string ToString()

@@ -20,8 +20,6 @@ namespace Labwork_3.MainFlow
             Console.WriteLine($"The third default (P1(1 ; 1), P2(0 ; 0)) line segment was created! {Environment.NewLine}");
             PrintDashLine();
 
-            
-
             DataChecker.CheckForLinesParallelism(firstLineSegment, secondLineSegment);
             Console.WriteLine($"The third line segment {++thirdLineSegment} was successfully incremented! {Environment.NewLine}");
 

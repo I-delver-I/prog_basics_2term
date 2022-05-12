@@ -12,12 +12,22 @@ namespace Labwork_3
         {
             BeginPoint = beginPoint;
             EndPoint = endPoint;
+
+            if (!IsValid(this))
+            {
+                throw new ArgumentException("The length of line segment shouldn't be equal to 0");
+            }
         }
 
         public LineSegment(Point sharedPoint)
         {
             BeginPoint = new Point(sharedPoint.Xaxis);
             EndPoint = new Point(sharedPoint.Yaxis);
+
+            if (!IsValid(this))
+            {
+                throw new ArgumentException("The length of line segment shouldn't be equal to 0");
+            }
         }
 
         public LineSegment()
@@ -71,20 +81,7 @@ namespace Labwork_3
 
         public static bool IsValid(LineSegment lineSegment)
         {
-            try
-            {
-                if (lineSegment.BeginPoint == lineSegment.EndPoint)
-                {
-                    throw new ArgumentException("The line segment length should be more than 0");
-                }
-
-                return true;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+            return (lineSegment.BeginPoint == lineSegment.EndPoint) ? false : true;
         }
 
         public override string ToString()

@@ -24,11 +24,6 @@ namespace Labwork_3.MainFlow
                         2 => new LineSegment(CapturePoint(), CapturePoint()),
                         _ => throw new ArgumentException("Please, enter 1 or 2 points to capture"),
                     };
-
-                    if (!LineSegment.IsValid(result))
-                    {
-                        exceptionIsThrown = true;
-                    }
                 }
                 catch (FormatException)
                 {

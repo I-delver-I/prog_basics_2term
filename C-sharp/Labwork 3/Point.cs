@@ -24,6 +24,7 @@ namespace Labwork_3
         {
             point.Xaxis++;
             point.Yaxis++;
+
             return point;
         }
 
@@ -31,7 +32,7 @@ namespace Labwork_3
         {
             if (obj == null || GetType() != obj.GetType())
             {
-                 return false;
+                return false;
             }
 
             Point point = (Point)obj;

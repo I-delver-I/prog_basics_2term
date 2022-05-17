@@ -1,35 +1,22 @@
 ﻿using System;
+using Labwork_2.Worker;
+using System.Collections.Generic;
 
-namespace Labwork_3.MainFlow
+namespace Labwork_2.MainFlow
 {
     static class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please, enter values to create three line segments:\n");
+            DateTime currentDate = DataCapture.CaptureCurrentDate();
 
-            LineSegment firstLineSegment = DataCapturer.CaptureLineSegment();
-            Console.WriteLine($"The first line segment was created successfully! {Environment.NewLine}");
-            PrintDashLine();
+            MessageGenerator.RequestForEnteringDataAboutWorkers();
 
-            LineSegment secondLineSegment = DataCapturer.CaptureLineSegment();
-            Console.WriteLine($"The second line segment was created successfully! {Environment.NewLine}");
-            PrintDashLine();
+            DataCapture.CaptureWorkers(currentDate);
 
-            LineSegment thirdLineSegment = new LineSegment();
-            Console.WriteLine($"The third default (P1(1 ; 1), P2(0 ; 0)) line segment was created! {Environment.NewLine}");
-            PrintDashLine();
+            Console.WriteLine(Environment.NewLine);
 
-            DataChecker.CheckForLinesParallelism(firstLineSegment, secondLineSegment);
-            Console.WriteLine($"The third line segment {++thirdLineSegment} was successfully incremented! {Environment.NewLine}");
-
-            Console.WriteLine($"The length of the third line segment is " +
-                $"{LineSegment.GetLength(thirdLineSegment)}");
-        }
-
-        static void PrintDashLine()
-        {
-            Console.WriteLine($"{new string('-', 40)}");
+            WorkerProcessor.PrintInfoAboutMostExperiencedWorkers(currentDate);
         }
     }
 }

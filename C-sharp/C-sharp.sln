@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labwork 3", "Labwork 3\Labw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labwork 5", "Labwork 5\Labwork 5.csproj", "{BDEC94A6-2206-4C49-B90D-D118B70D8DE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labwork 5", "Labwork 5 test\Labwork 5.csproj", "{C0A6FB82-89DF-405A-9244-E59E0EB623C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labwork 6", "Labwork 6\Labwork 6.csproj", "{76EEBF80-F528-4E11-971D-D5B6C59E9568}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{BDEC94A6-2206-4C49-B90D-D118B70D8DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDEC94A6-2206-4C49-B90D-D118B70D8DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDEC94A6-2206-4C49-B90D-D118B70D8DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A6FB82-89DF-405A-9244-E59E0EB623C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A6FB82-89DF-405A-9244-E59E0EB623C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A6FB82-89DF-405A-9244-E59E0EB623C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A6FB82-89DF-405A-9244-E59E0EB623C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EEBF80-F528-4E11-971D-D5B6C59E9568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EEBF80-F528-4E11-971D-D5B6C59E9568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EEBF80-F528-4E11-971D-D5B6C59E9568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EEBF80-F528-4E11-971D-D5B6C59E9568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,34 +2,54 @@ namespace Labwork_5.MainFlow.Capturer
 {
     public class EventCapturer
     {
-        public int MaxMeetingsCount { get; set; }
-        
-        public EventCapturer(int maxMeetingsCount)
+        private int _meetingsCount;
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public int MeetingsCount
         {
-            MaxMeetingsCount = maxMeetingsCount;
+            get => _meetingsCount;
+            set
+            {
+                Validator.ValidateMeetingsCount(value);
+                _meetingsCount = value;
+            }
+        }
+
+        public EventCapturer(int meetingsCount)
+        {
+            MeetingsCount = meetingsCount;
+        }
+
+        public EventCapturer()
+        {
+            
         }
 
         public List<Event> CaptureEvents()
         {
-            List<Event> activities = new List<Event>();
-            
             do
             {
-                activities.Add(CaptureMeeting());
-                MaxMeetingsCount--;
-
-                if (MaxMeetingsCount == 0)
+                try
                 {
-                    activities.Add(CaptureBirthday(activities));
-                }
-            } while (MaxMeetingsCount > 0);
+                    MeetingsCount--;
+                    ActivityScheduler.AddActivity(CaptureMeeting());
 
-            return activities;
+                    if (MeetingsCount == 0)
+                    {
+                        ActivityScheduler.AddActivity(CaptureBirthday());
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    System.Console.WriteLine(ex.Message);
+                    MeetingsCount++;
+                }
+            } while (MeetingsCount > 0);
+
+            return ActivityScheduler.GetActivitiesList();
         }
 
-        public static int CaptureMaxMeetingCount()
+        public int CaptureMaxMeetingsCount()
         {
-            int maxMeetingsCount = default;
             bool exceptionIsThrown = true;
 
             while (exceptionIsThrown)
@@ -39,7 +59,7 @@ namespace Labwork_5.MainFlow.Capturer
 
                 try
                 {
-                    maxMeetingsCount = int.Parse(Console.ReadLine());
+                    MeetingsCount = int.Parse(Console.ReadLine());
                 }
                 catch (FormatException)
                 {
@@ -53,7 +73,7 @@ namespace Labwork_5.MainFlow.Capturer
                 }
             }
 
-            return maxMeetingsCount;
+            return MeetingsCount;
         }
 
         private static Meeting CaptureMeeting()
@@ -70,7 +90,9 @@ namespace Labwork_5.MainFlow.Capturer
                 {
                     System.Console.WriteLine("Please, identificate the person to meet:");
                     PersonCapturer.CapturePerson(meeting);
-                    meeting.Place = CapturePlace();
+                    CapturePlace(meeting);
+                    meeting.DateTime = meeting.DateTime.Add(DateTimeCapturer.CaptureTime().ToTimeSpan());
+                    Program.PrintDashLine();
                 }
                 catch (ArgumentException ex)
                 {
@@ -82,7 +104,7 @@ namespace Labwork_5.MainFlow.Capturer
             return meeting;
         }
 
-        private static Birthday CaptureBirthday(List<Event> activities)
+        private static Birthday CaptureBirthday()
         {
             Birthday birthday = new Birthday();
             bool exceptionIsThrown = true;
@@ -96,8 +118,9 @@ namespace Labwork_5.MainFlow.Capturer
                 {
                     System.Console.WriteLine("Please, identificate the celebrant:");
                     PersonCapturer.CapturePerson(birthday);
-                    birthday.CelebrationPlace = CapturePlace();
-                    Validator.ValidateBirthdayDateTime(birthday.DateAndTime,activities);
+                    CapturePlace(birthday);
+                    birthday.DateTime = birthday.DateTime.Add(DateTimeCapturer.CaptureTime().ToTimeSpan());
+                    Program.PrintDashLine();
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
@@ -114,7 +137,7 @@ namespace Labwork_5.MainFlow.Capturer
             return birthday;
         }
 
-        private static string CapturePlace()
+        private static string CapturePlace(Event activity)
         {
             string place = default;
             bool exceptionIsThrown = true;
@@ -126,8 +149,14 @@ namespace Labwork_5.MainFlow.Capturer
 
                 try
                 {
-                    place = Console.ReadLine();
-                    Validator.ValidatePlace(place);
+                    if (activity is Birthday birthday)
+                    {
+                        birthday.CelebrationPlace = place = Console.ReadLine();
+                    }
+                    else if (activity is Meeting meeting)
+                    {
+                        meeting.Place = place = Console.ReadLine();
+                    }
                 }
                 catch (ArgumentException ex)
                 {

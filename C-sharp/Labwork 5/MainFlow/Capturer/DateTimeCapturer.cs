@@ -2,9 +2,9 @@ namespace Labwork_5.MainFlow.Capturer
 {
     public class DateTimeCapturer
     {
-        public static DateTime CaptureDateAndTime()
+        public static TimeOnly CaptureTime()
         {
-            DateTime result = new DateTime();
+            TimeOnly time = new TimeOnly();
             bool valueIsValid = false;
 
             while (!valueIsValid)
@@ -14,85 +14,40 @@ namespace Labwork_5.MainFlow.Capturer
                 try
                 {
                     System.Console.Write("Please, enter the time: ");
-                    TimeOnly time = TimeOnly.Parse(Console.ReadLine());
-
-                    result = CaptureDate().ToDateTime(time);
+                    time = TimeOnly.Parse(Console.ReadLine());
                 }
-                catch (FormatException)
+                catch (FormatException ex)
                 {
-                    System.Console.WriteLine($"The entered value doesn't fit for a pattern. Try again");
+                    System.Console.WriteLine(ex.Message);
                     valueIsValid = false;
                 }
             }
 
-            return result;
+            return time;
         }
 
         public static DateOnly CaptureDate()
         {
             DateOnly date = new DateOnly();
-            bool exceptionIsCaught = true;
+            bool valueIsValid = false;
 
-            while (exceptionIsCaught)
+            while (!valueIsValid)
             {
-                exceptionIsCaught = false;
+                valueIsValid = true;
 
                 try
                 {
                     System.Console.Write("Please, enter the date: ");
-                    DateOnly result = DateOnly.Parse(Console.ReadLine());
+                    date = DateOnly.Parse(Console.ReadLine());
                 }
-                catch (FormatException)
+                catch (FormatException ex)
                 {
-                    System.Console.WriteLine("The entered value doesn't fit for a pattern. Try again");
-                    exceptionIsCaught = true;
+                    System.Console.WriteLine(ex.Message);
+                    valueIsValid = false;
                 }
             }
 
             return date;
-        }
-
-        public static void CaptureDatesForEvents(List<Event> activities)
-        {
-            foreach (Event activity in activities)
-            {
-                System.Console.WriteLine("Enter the date for the nest event:");
-
-                if (activity is Meeting meeting)
-                {
-                    System.Console.WriteLine(meeting.ToString());
-                }
-                else if (activity is Birthday birthday)
-                {
-                    System.Console.WriteLine(birthday.ToString());
-                }
-                
-                activity.DateAndTime = DateTimeCapturer.CaptureDateAndTime();
-                Program.PrintDashLine();
-            }
-        }
-
-        public static TimeSpan CaptureTimeUpToEvent(Event eventToAssess)
-        {
-            bool exceptionIsCaught = true;
-            TimeSpan timeToEvent = new TimeSpan();
-
-            while (exceptionIsCaught)
-            {
-                exceptionIsCaught = false;
-
-                try
-                {
-                    timeToEvent = eventToAssess.GetTimeUpToEvent(DateTimeCapturer.CaptureDateAndTime());
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    System.Console.WriteLine(ex.Message);
-                    exceptionIsCaught = true;
-                }
-            }
-            
-            return timeToEvent;
         }
     }
 }

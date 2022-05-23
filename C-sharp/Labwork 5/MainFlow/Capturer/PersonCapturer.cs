@@ -2,7 +2,7 @@ namespace Labwork_5.MainFlow.Capturer
 {
     public class PersonCapturer
     {
-        private static int CaptureAge()
+        private static int CaptureAge(Birthday birthday)
         {
             int age = default;
             bool exceptionIsThrown = true;
@@ -14,8 +14,7 @@ namespace Labwork_5.MainFlow.Capturer
 
                 try
                 {
-                    age = int.Parse(Console.ReadLine());
-                    Validator.ValidateAge(age);
+                    birthday.CelebrantsAge = age = int.Parse(Console.ReadLine());
                 }
                 catch (FormatException)
                 {
@@ -32,7 +31,7 @@ namespace Labwork_5.MainFlow.Capturer
             return age;
         }
 
-        public static void CapturePerson(Event activity)
+        public static PersonModel CapturePerson(Event activity)
         {
             PersonModel person = new PersonModel();
             bool exceptionIsThrown = true;
@@ -54,7 +53,7 @@ namespace Labwork_5.MainFlow.Capturer
 
                     if (activity is Birthday birthday)
                     {
-                        birthday.CelebrantsAge = CaptureAge();
+                        CaptureAge(birthday);
                         birthday.Celebrant = person;
                     }
                     else if (activity is Meeting meeting)
@@ -68,6 +67,8 @@ namespace Labwork_5.MainFlow.Capturer
                     exceptionIsThrown = true;
                 }
             }
+
+            return person;
         }
     }
 }

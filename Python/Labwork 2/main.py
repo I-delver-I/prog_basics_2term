@@ -1,7 +1,7 @@
 from infrastructure import *
 import datetime
 
-path = r"C:\Users\Дима\Desktop\Studying\Labs\II term\prog_basics_2term\Python\Labwork 1.2\files\\"
+path = r"C:\Users\Дима\Desktop\Studying\Labs\II term\prog_basics_2term\Python\Labwork 2\files\\"
 
 print(" - - - - - - - - - - - - - - - - - - - - - - - - Product list Maker - - - - - - - - - - - - - - - - - - - - - - - - - -\n")
 currentDate = datetime.datetime.fromisoformat(input("Please, enter the current date (YYYY-MM-DD): "))

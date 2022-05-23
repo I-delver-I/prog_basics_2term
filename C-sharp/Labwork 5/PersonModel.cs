@@ -1,8 +1,11 @@
+using Labwork_5.MainFlow;
+
 namespace Labwork_5
 {
     public class PersonModel
     {
         private string _firstName;
+        /// <exception cref="ArgumentException"></exception>
         public string FirstName
         {
             get => _firstName;
@@ -13,6 +16,7 @@ namespace Labwork_5
             }
         }
         private string _secondName;
+        /// <exception cref="ArgumentException"></exception>
         public string SecondName
         {
             get => _secondName;
@@ -23,6 +27,7 @@ namespace Labwork_5
             }
         }
         private string _patronymic;
+        /// <exception cref="ArgumentException"></exception>
         public string Patronymic
         {
             get => _patronymic;
@@ -33,7 +38,7 @@ namespace Labwork_5
             }
         }
         
-
+        /// <exception cref="ArgumentException"></exception>
         public PersonModel(string firstName, string secondName, string patronymic)
         {
             FirstName = firstName;

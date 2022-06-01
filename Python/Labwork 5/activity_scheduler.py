@@ -1,16 +1,15 @@
-import birthday as b
-import meeting as m
-import validator as v
-import activity_scheduler as acs
-from datetime import date, datetime, time
-import event as ev
+from validator import *
+from datetime import *
+from events import *
+import functions
+
 
 class ActivityScheduler:
     __activities = []
     
     @staticmethod
     def add_activity(activity):
-        v.Validator.validate_event_time(activity)
+        functions.validate_event_time(activity, ActivityScheduler.get_activities_list())
         ActivityScheduler.__activities.append(activity)
 
     @staticmethod
@@ -19,16 +18,20 @@ class ActivityScheduler:
 
     @staticmethod
     def get_latest_meeting():
-        meetings = list(filter(lambda activity: activity is m.Meeting, ActivityScheduler.__activities))
-        max_date_time = max(list(map(lambda meeting: m.Meeting(meeting).get_date_time(), meetings)))
+        meetings = list(filter(lambda activity: isinstance(activity, Meeting), ActivityScheduler.__activities))
+        result = meetings[0]
 
-        return next(meeting for meeting in meetings if m.Meeting(meeting).get_date_time() == max_date_time())
+        for meeting in meetings:
+            if meeting.get_date_time() > result.get_date_time():
+                result = meeting
+
+        return result
 
     @staticmethod
     def assign_date_to_events(date):
-        for activity in acs.ActivityScheduler.get_activities_list():
-            # if activity is m.Meeting:
-            #     activity. = datetime.combine(date, time())
-            # elif activity is b.Birthday:
-            #     activity. = datetime.combine(date, time())
-            pass
+        for activity in ActivityScheduler.get_activities_list():
+            if isinstance(activity, Meeting):
+                activity.set_date_time(datetime.combine(date, activity.get_date_time().time()))
+            elif isinstance(activity, Birthday):
+                activity.set_date_time(datetime.combine(date, activity.get_date_time().time()))
+            

@@ -1,7 +1,4 @@
-from datetime import datetime, time, timedelta
-import activity_scheduler as acs
-import event as ev
-
+from datetime import *
 
 class Validator:
     @staticmethod
@@ -27,30 +24,20 @@ class Validator:
 
     @staticmethod
     def validate_place(place):
-        if place == "":
+        if str(place) == "":
             raise ValueError("The name of place shouldn't be empty")
 
     @staticmethod
     def validate_meeting_time(meeting_date_time):
         last_available_meeting_time = time(20, 50)
         
-        if datetime(meeting_date_time).time() > last_available_meeting_time:
+        if meeting_date_time.time() > last_available_meeting_time:
             raise ValueError("The time of event shouldn't be bigger than last available (20:50)")
 
     @staticmethod
     def validate_birthday_time(birthday_date_time):
         mandatory_for_birthday_start = time(21, 0, 0)
 
-        if datetime(birthday_date_time).time() > mandatory_for_birthday_start:
+        if birthday_date_time.time() > mandatory_for_birthday_start:
             raise ValueError("The mandatory for birthday celebrating is at 21 o'clock."
                 + f" Current time is {birthday_date_time}")
-
-    @staticmethod
-    def validate_event_time(event):
-        min_meeting_duration = timedelta(minutes=10)
-
-        for activity in acs.ActivityScheduler.get_activities_list():
-            time_between_events = timedelta(abs(timedelta(ev.Event.get_time_between_events(event, activity)).total_seconds()))
-            
-            if time_between_events < min_meeting_duration:
-                raise ValueError("The time between events should be at least 10 minutes")

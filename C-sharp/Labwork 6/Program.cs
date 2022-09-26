@@ -45,7 +45,7 @@ namespace Labwork_6
                     product.Name = Console.ReadLine();
 
                     System.Console.Write("Please, enter the product price: ");
-                    product.Price = int.Parse(Console.ReadLine());
+                    product.Price = decimal.Parse(Console.ReadLine());
 
                     System.Console.Write("Please, eter the product count: ");
                     product.Count = int.Parse(Console.ReadLine());

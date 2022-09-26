@@ -10,14 +10,16 @@ namespace Labwork_5.MainFlow
             DateOnly concreteDate = DateTimeCapturer.CaptureDate();
             EventCapturer eventCapturer = new EventCapturer();
             eventCapturer.MeetingsCount = eventCapturer.CaptureMaxMeetingsCount();
-
+            PrintDashLine();
+            
             List<Event> activities = eventCapturer.CaptureEvents();
             ActivityScheduler.AssignDateToEvents(concreteDate);
             PrintEvents();
-
+            
             System.Console.WriteLine("The last meeting of the day:");
             Meeting lastMeeting = ActivityScheduler.GetLatestMeeting();
             System.Console.WriteLine(lastMeeting);
+            PrintDashLine();
             
             Birthday birthday = GetBirthdayFromList(activities);
             System.Console.Write("Period of time between last meeting and birthday: ");

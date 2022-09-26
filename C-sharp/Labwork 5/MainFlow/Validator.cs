@@ -72,7 +72,7 @@ namespace Labwork_5.MainFlow
             {
                 throw new ArgumentOutOfRangeException(nameof(birthdayDateTime),
                     "The mandatory for birthday "
-                    + $"celebrating is at 21 o'clock. Curret time is {birthdayDateTime}");
+                    + $"celebrating is at 21 o'clock. Current time is {birthdayDateTime}");
             }
         }
 

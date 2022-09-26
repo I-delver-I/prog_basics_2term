@@ -40,9 +40,9 @@ namespace Labwork_5
         {
             TimeSpan result = leftSideEvent.DateTime.Subtract(rightSideEvent.DateTime);
             
-            if (result.Minutes < 0 || result.Hours < 0)
+            if (result.Minutes < 0 || result.Hours < 0 )
             {
-                result.Negate();
+                result = result.Negate();
             }
 
             return result;

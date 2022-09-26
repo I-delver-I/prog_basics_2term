@@ -47,43 +47,43 @@ namespace Labwork_6
             return Find(price, Root);            
         }
     
-        public void Remove(int value)
+        public void Remove(int price)
         {
-            Root = Remove(Root, value);
+            Root = Remove(Root, price);
         }
     
-        private Node Remove(Node parent, decimal price)
+        private Node Remove(Node root, decimal price)
         {
-            if (parent == null)
+            if (root == null)
             {
-                return parent;
+                return root;
             }
     
-            if (price < parent.Data.Price)
+            if (price < root.Data.Price)
             {
-                parent.LeftNode = Remove(parent.LeftNode, price);
+                root.LeftNode = Remove(root.LeftNode, price);
             }
-            else if (price > parent.Data.Price)
+            else if (price > root.Data.Price)
             {
-                parent.RightNode = Remove(parent.RightNode, price);
+                root.RightNode = Remove(root.RightNode, price);
             }
     
             else
             {
-                if (parent.LeftNode == null)
+                if (root.LeftNode == null)
                 {
-                    return parent.RightNode;
+                    return root.RightNode;
                 }
-                else if (parent.RightNode == null)
+                else if (root.RightNode == null)
                 {
-                    return parent.LeftNode;
+                    return root.LeftNode;
                 }
     
-                parent.Data.Price = GetMinValue(parent.RightNode);
-                parent.RightNode = Remove(parent.RightNode, parent.Data.Price);
+                root.Data.Price = GetMinValue(root.RightNode);
+                root.RightNode = Remove(root.RightNode, root.Data.Price);
             }
     
-            return parent;
+            return root;
         }
     
         private decimal GetMinValue(Node node)
@@ -99,21 +99,21 @@ namespace Labwork_6
             return minPrice;
         }
     
-        private Node Find(decimal price, Node parent)
+        private Node Find(decimal price, Node root)
         {
-            if (parent != null)
+            if (root != null)
             {
-                if (price == parent.Data.Price)
+                if (price == root.Data.Price)
                 {
-                    return parent;
+                    return root;
                 }
-                else if (price < parent.Data.Price)
+                else if (price < root.Data.Price)
                 {
-                    return Find(price, parent.LeftNode);
+                    return Find(price, root.LeftNode);
                 }
                 else
                 {
-                    return Find(price, parent.RightNode);
+                    return Find(price, root.RightNode);
                 }
             }
     
@@ -125,29 +125,28 @@ namespace Labwork_6
             return GetTreeDepth(Root);
         }
     
-        private int GetTreeDepth(Node parent)
+        private int GetTreeDepth(Node root)
         {
-            return (parent == null) ? 0 : Math.Max(GetTreeDepth(parent.LeftNode), 
-                GetTreeDepth(parent.RightNode)) + 1;
+            return (root == null) ? 0 : Math.Max(GetTreeDepth(root.LeftNode), GetTreeDepth(root.RightNode)) + 1;
         }
 
-        public decimal GetTotalPrice(Node parent)
+        public decimal GetTotalPrice(Node root)
         {
-            decimal totalPrice = parent.Data.GetTotalPrice();
+            decimal totalPrice = root.Data.GetTotalPrice();
 
-            if (parent.LeftNode != null)
+            if (root.LeftNode != null)
             {
-                totalPrice += GetTotalPrice(parent.LeftNode);
+                totalPrice += GetTotalPrice(root.LeftNode);
             }
 
-            if (parent.RightNode != null)
+            if (root.RightNode != null)
             {
-                totalPrice += GetTotalPrice(parent.RightNode);
+                totalPrice += GetTotalPrice(root.RightNode);
             }
 
             return totalPrice;
         }
-    
+
         public void TraversePreOrder(Node parent)
         {
             if (parent != null)
